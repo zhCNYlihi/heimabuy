@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+
 	</view>
 </template>
 
@@ -8,8 +8,11 @@
 	export default {
 		data() {
 			return {
-				
+
 			};
+		},
+		onLoad(options) {
+			console.log(options);
 		}
 	}
 </script>
