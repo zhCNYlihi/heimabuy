@@ -1,5 +1,9 @@
 <template>
 	<view>
+		<!-- 为搜索栏提供吸顶效果 -->
+		<view class="search-box">
+			<goodssearch @gotosearch="gotosearch"></goodssearch>
+		</view>
 		<!-- 轮播图 -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" circular
 			indicator-active-color='#C10001'>
@@ -87,7 +91,7 @@
 					})
 				}
 			},
-			// 获取楼层数据
+			// 4.获取楼层数据
 			async getFloorList() {
 				let res = await uni.$http.get("/api/public/v1/home/floordata")
 				// 同样的,对访问失败进行处理
@@ -105,6 +109,12 @@
 				})
 				this.floorList = res.data.message
 				console.log("楼层商品数据", this.floorList);
+			},
+			// 5.使用自定义事件父传子,导航去search页面
+			gotosearch() {
+				uni.navigateTo({
+					url: "/subpkg/search/search"
+				})
 			},
 		}
 
@@ -144,5 +154,12 @@
 			display: flex;
 			flex-wrap: wrap;
 		}
+	}
+
+	// 搜搜栏吸顶效果
+	.search-box {
+		z-index: 999; //防止覆盖
+		position: sticky; //设置定位为吸顶
+		top: 0; //距离顶部的位置
 	}
 </style>

@@ -32,22 +32,30 @@
 		"root": "subpkg",
 		"pages": [{
 			"path": "goodsdetail/goodsdetail",
-			"style": {}
-		}    ,{
-                    "path" : "floordetail/floordetail",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "",
-                    "enablePullDownRefresh": false
-                }
-                
-                }
-            ]
+			"style": {
+				"navigationBarTitleText": "查询商品详情",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "floordetail/floordetail",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "search/search",
+			"style": {
+				"navigationBarTitleText": "商品查询",
+				"enablePullDownRefresh": false
+			}
+
+		}]
 	}],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "黑马优购",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#C30000",
 		"backgroundColor": "#F8F8F8",
 		"app-plus": {
 			"background": "#efeff4"

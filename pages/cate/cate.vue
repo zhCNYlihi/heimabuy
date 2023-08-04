@@ -1,27 +1,33 @@
 <template>
-	<view class="flexview">
-		<scroll-view scroll-y="true" class="leftview" :style="{height:wh+'px'}">
-			<block v-for="(item,index) in cateList" :key="index">
-				<view :class="['leftitem', index===activeId?'active':'']" @click="activeIdchange(index)">
-					{{item.cat_name}}
-				</view>
-			</block>
-		</scroll-view>
-		<scroll-view scroll-y="true" class="rightview" :style="{height:wh+'px'}" :scroll-top="scrolltop">
-			<block v-for="(item2,index2) in catelevel2" :key="index2">
-				<view class="item2-title">
-					｜{{item2.cat_name}}｜
-				</view>
-				<!-- 三级分类 -->
-				<view class="">
-					<view class="item3-text" v-for="(item3,index3) in item2.children" :key="index3"
-						@click="gotofloordetail(item3)">
-						<!-- <image :src="item3.cat_icon"></image> 这一块数据未给到-->
-						<view> {{item3.cat_name}}</view>
+	<view class="">
+		<!-- 高效使用组件：外父传子属性 -->
+		<goodssearch bgColor="#FA764F" :radius="5" @gotosearch="gotosearch"></goodssearch>
+		<!-- 默认属性 -->
+		<!-- <goodssearch></goodssearch> -->
+		<view class="flexview">
+			<scroll-view scroll-y="true" class="leftview" :style="{height:wh+'px'}">
+				<block v-for="(item,index) in cateList" :key="index">
+					<view :class="['leftitem', index===activeId?'active':'']" @click="activeIdchange(index)">
+						{{item.cat_name}}
 					</view>
-				</view>
-			</block>
-		</scroll-view>
+				</block>
+			</scroll-view>
+			<scroll-view scroll-y="true" class="rightview" :style="{height:wh+'px'}" :scroll-top="scrolltop">
+				<block v-for="(item2,index2) in catelevel2" :key="index2">
+					<view class="item2-title">
+						｜{{item2.cat_name}}｜
+					</view>
+					<!-- 三级分类 -->
+					<view class="item3">
+						<view class="item3-text" v-for="(item3,index3) in item2.children" :key="index3"
+							@click="gotofloordetail(item3)">
+							<image :src="item3.cat_icon"></image>
+							<view> {{item3.cat_name}}</view>
+						</view>
+					</view>
+				</block>
+			</scroll-view>
+		</view>
 	</view>
 </template>
 
@@ -41,7 +47,7 @@
 			// 这里有一个方法,可以获得机型信息,可以拿到可使用内容高度(去除头部底部bar)
 			let phoneinfo = uni.getSystemInfoSync()
 			// console.log(phoneinfo);  、、此时就可以拿到设备信息
-			this.wh = phoneinfo.windowHeight
+			this.wh = phoneinfo.windowHeight - 64 //减去搜索高度64
 			this.getCatelist()
 		},
 		methods: {
@@ -68,7 +74,13 @@
 				uni.navigateTo({
 					url: "/subpkg/floordetail/floordetail?floorid=" + item3.cat_id
 				})
-			}
+			},
+			// 4.使用自定义事件父传子,导航去search页面
+			gotosearch() {
+				uni.navigateTo({
+					url: "/subpkg/search/search"
+				})
+			},
 		},
 	}
 </script>
@@ -105,6 +117,10 @@
 			}
 		}
 
+		.rightview {
+			background-color: #FEFEFE;
+		}
+
 		.item2-title {
 			text-align: center;
 			padding: 15px 0;
@@ -112,11 +128,22 @@
 			font-weight: bold;
 		}
 
-		.item3-text view {
+		.item3 {
 			display: flex;
-			width: 33.33%;
-			height: 30px;
-			line-height: 30px;
+			flex-wrap: wrap;
+
+			.item3-text {
+				width: 33.33%;
+				margin-bottom: 10px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+
+				image {
+					width: 60px;
+					height: 60px;
+				}
+			}
 		}
 	}
 </style>

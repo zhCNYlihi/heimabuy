@@ -9,9 +9,9 @@ import {
 uni.$http = $http //每个页面都可以使用uni.$http发送网络请求了
 
 // 配置请求根路径
-$http.baseUrl = 'https://www.uinav.com'
-
-
+// $http.baseUrl = 'https://www.uinav.com'
+// 配置修改后的请求路径
+$http.baseUrl = 'https://api-hmugo-web.itheima.net'
 // 请求拦截器
 $http.beforeRequest = function(options) {
 	uni.showLoading({
