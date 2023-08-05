@@ -32,7 +32,7 @@
 					<!-- 右侧图片 -->
 					<view class="rightimage">
 						<navigator :url="item2.url" class="flexright" v-for="(item2,index2) in item.product_list"
-							v-if="index2 !==0">
+							:key="index2" v-if="index2 !==0">
 							<!-- 这里巧妙使用v-for与v-if对第一张图片进行过滤 -->
 							<image :src="item2.image_src" :style="{width:item2.image_width+'rpx'}" mode="widthFix">
 							</image>

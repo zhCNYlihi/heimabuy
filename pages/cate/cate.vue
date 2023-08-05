@@ -72,7 +72,7 @@
 			// 3.点击跳转到楼层商品详情页
 			gotofloordetail(item3) {
 				uni.navigateTo({
-					url: "/subpkg/floordetail/floordetail?floorid=" + item3.cat_id
+					url: "/subpkg/floordetail/floordetail?cid=" + item3.cat_id //根据接口需要传cid（分类id）
 				})
 			},
 			// 4.使用自定义事件父传子,导航去search页面

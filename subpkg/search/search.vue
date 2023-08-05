@@ -128,7 +128,7 @@
 			gotogoodsdetail(item) {
 				// 根据电商app,一般都是点击历史去商品详情页
 				uni.navigateTo({
-					url: "/subpkg/goodsdetail/goodsdetail?query=" + item
+					url: "/subpkg/floordetail/floordetail?query=" + item
 				})
 			},
 		}

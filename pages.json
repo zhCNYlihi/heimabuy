@@ -39,8 +39,10 @@
 		}, {
 			"path": "floordetail/floordetail",
 			"style": {
-				"navigationBarTitleText": "商品详情",
-				"enablePullDownRefresh": false
+				"navigationBarTitleText": "楼层商品信息",
+				"onReachBottomDistance": 50, //距离底部50像素触发
+				"enablePullDownRefresh": true, //表示开启下拉刷新的效果
+				"backgroundColor": "#f8f8f8" //窗口背景色
 			}
 
 		}, {

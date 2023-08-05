@@ -12,8 +12,10 @@
 			};
 		},
 		onLoad(options) {
-			console.log(options);
-		}
+
+		},
+		methods: {}
+
 	}
 </script>
 

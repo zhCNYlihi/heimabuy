@@ -2,7 +2,7 @@
 	<view class="searchtitle" :style="{'background-color':bgColor}">
 		<view class="searchtitle-text" :style="{'border-radius':radius+'px'}" @click="onSearch">
 			<uni-icons type="search" size="17"></uni-icons>
-			<text>搜素</text>
+			<text>搜索</text>
 		</view>
 	</view>
 </template>
