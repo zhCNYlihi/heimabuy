@@ -60,7 +60,7 @@
 			},
 			// 4.去商品详情页..//跳转传参goods_id是item.id
 			gotodetail(item) {
-				console.log(item);
+				// console.log(item);
 				uni.navigateTo({
 					url: "/subpkg/goodsdetail/goodsdetail?goods_id=" + item.goods_id
 				})
