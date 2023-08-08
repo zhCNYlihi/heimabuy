@@ -28,6 +28,7 @@
 		}
 
 	}],
+
 	"subPackages": [{
 		"root": "subpkg",
 		"pages": [{

@@ -45,7 +45,11 @@
 </template>
 
 <script>
+	// 导入自己封装的mixins,显示底部导航栏底部的角标
+	import cartMixins from '@/mixins/cartbadge.js'
 	export default {
+		// 使用minins
+		mixins: [cartMixins],
 		data() {
 			return {
 				swiperList: [],

@@ -30,17 +30,54 @@
 		<!-- 富文本内容，直接渲染页面商品信息 -->
 		<rich-text :nodes="goodsInfo.goods_introduce"></rich-text>
 		<view class="bottom-bar">
-			<uni-goods-nav @click="onClick" />
+			<uni-goods-nav :options="options" @click="onClick" @buttonClick="addClick" />
 		</view>
 	</view>
 </template>
 
 <script>
+	// 4.添加购物车,将数据添加到cart仓库
+	// 这里使用mapState方法,简化操作:减少重复代码,避免仓库中数据空间的污染,映射的数据保持响应式
+	import {
+		mapState,
+		mapMutations,
+		mapGetters
+	} from 'vuex'
 	export default {
+		// 4.1计算属性,来获取数据
+		computed: {
+			...mapState("moduleCart", ['cartList']),
+			...mapGetters("moduleCart", ['total'])
+		},
+		// 4.4借助计算属性实时监听购物车角标的数量
+		watch: {
+			// 1.监听total值的变化,通过形参得到变化后的新值
+			// 注意,这里要使用立即监听,因为存储数据使用的异步代码
+			total: {
+				handler(newValue) { // 2.使用find方法找到数据data中options的配置角标数量，存在就返回该数据，不存在提示und
+					let itemInfo = this.options.find(item => item.text == "购物车")
+					// 3.如果找到该购物车,就重新赋值
+					if (itemInfo) {
+						itemInfo.info = newValue
+					}
+				},
+				immediate: true //立即监听  
+			}
+		},
 		data() {
 			return {
 				goodsInfo: [], //商品详细信息
-
+				options: [{
+					icon: 'shop',
+					text: '店铺',
+					// info: 2,
+					// infoBackgroundColor: '#007aff',
+					infoColor: "red"
+				}, {
+					icon: 'cart',
+					text: '购物车',
+					info: 0
+				}],
 			};
 		},
 		// 3.处理价格
@@ -56,6 +93,8 @@
 			this.getGoodsInfo(goods_id) //传入该id
 		},
 		methods: {
+			// 4.2cart仓库中的方法
+			...mapMutations("moduleCart", ['addcart']),
 			// 1.根据id获取商品信息
 			async getGoodsInfo(goods_id) {
 				let res = await uni.$http.get("/api/public/v1/goods/detail", {
@@ -81,9 +120,25 @@
 					urls: this.goodsInfo.pics.map(item => item.pics_big) //这里提取每一项的图片属性得到一个包含图片Url的数组
 				})
 			},
-
+			// 4.3添加商品
+			addClick(e) {
+				// console.log(e); //根据事件对象判断是加入购物车还是立即购买
+				if (e.content.text == "加入购物车") {
+					// 准成商品信息数据
+					let goodsinfo = {
+						goods_id: this.goodsInfo.goods_id,
+						goods_name: this.goodsInfo.goods_name,
+						goods_price: this.goodsInfo.goods_price,
+						// 点击添加时,数量可以自己初始化给个1
+						goods_count: 1,
+						goods_small_logo: this.goodsInfo.goods_small_logo,
+						goods_state: true
+					}
+					// 调用cart仓库中的方法
+					this.addcart(goodsinfo)
+				}
+			},
 		}
-
 	}
 </script>
 

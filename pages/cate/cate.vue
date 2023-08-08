@@ -32,7 +32,11 @@
 </template>
 
 <script>
+	// 使用mixins，显示底部导航栏购物车的角标
+	import cartMixins from '@/mixins/cartbadge.js'
 	export default {
+		// 使用minins
+		mixins: [cartMixins],
 		data() {
 			return {
 				wh: 0, //windowheight 设备可以使用的内容高度
@@ -90,6 +94,7 @@
 		display: flex;
 
 		.leftview {
+			background-color: #F7F7FA;
 			width: 150px;
 
 			.leftitem {
